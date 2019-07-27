@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour
     {
         if (restart)
         {
-            if (Input.GetKeyDown (KeyCode.R))
+            if (Input.GetKeyDown (KeyCode.F))
             {
                 SceneManager.LoadScene("Main");
             }
@@ -62,7 +62,7 @@ public class GameController : MonoBehaviour
 
         if (gameOver)
         {
-            restartText.text = "Press 'R' for Restart";
+            restartText.text = "Press 'F' for Restart";
             restart = true;
             break;
         }
@@ -77,7 +77,7 @@ public class GameController : MonoBehaviour
 
     void UpdateScore ()
     {
-      scoreText.text = "Score: " + score;
+      scoreText.text = "Points: " + score;
       if (score >= 100)
       {
           gameOverText.text = "You win! Game created by Javier Lopez";
