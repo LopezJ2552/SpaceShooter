@@ -77,6 +77,12 @@ public class GameController : MonoBehaviour
     void UpdateScore ()
     {
       scoreText.text = "Score: " + score;
+      if (score >= 100)
+      {
+          gameOverText.text = "You win! Game created by Javier Lopez";
+          gameOver = true;
+          restart = true;
+      }
     }
 
     public void GameOver ()
