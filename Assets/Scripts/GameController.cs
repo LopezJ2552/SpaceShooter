@@ -12,7 +12,9 @@ public class GameController : MonoBehaviour
     public float spawnWait;
     public float startWait;
     public float waveWait;
-    
+    public AudioClip victoryTune;
+    public AudioClip gameOverTune;
+    public AudioSource musicSource;
 
     public Text scoreText;
     public Text restartText;
@@ -82,9 +84,17 @@ public class GameController : MonoBehaviour
       scoreText.text = "Points: " + score;
       if (score >= Goal)
       {
-          gameOverText.text = "You win! Game created by Javier Lopez";
-          gameOver = true;
-          restart = true;
+        gameOverText.text = "You win! Game created by Javier Lopez";
+        gameOver = true;
+        restart = true;
+
+        if (musicSource.playOnAwake == true)
+        {
+            musicSource.clip = victoryTune;
+            musicSource.volume = 0.2f;
+            musicSource.Play();
+            musicSource.playOnAwake = false;
+        }
       }
     }
 
@@ -92,5 +102,8 @@ public class GameController : MonoBehaviour
     {
         gameOverText.text = "Game Over!";
         gameOver = true;
+        musicSource.clip = gameOverTune;
+        musicSource.loop = false;
+        musicSource.Play();
     }
 }
