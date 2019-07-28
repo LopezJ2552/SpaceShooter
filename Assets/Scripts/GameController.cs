@@ -12,11 +12,13 @@ public class GameController : MonoBehaviour
     public float spawnWait;
     public float startWait;
     public float waveWait;
+    
 
     public Text scoreText;
     public Text restartText;
     public Text gameOverText;
-    private int score;
+    public int score;
+    public float Goal;
     private bool restart;
     private bool gameOver;
     void Start ()
@@ -78,7 +80,7 @@ public class GameController : MonoBehaviour
     void UpdateScore ()
     {
       scoreText.text = "Points: " + score;
-      if (score >= 100)
+      if (score >= Goal)
       {
           gameOverText.text = "You win! Game created by Javier Lopez";
           gameOver = true;
