@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Boundary
@@ -13,8 +15,9 @@ public class PlayerController : MonoBehaviour
      public float speed;
      public float tilt;
      public Boundary boundary;
-
+     public Text powerUpText;
      private Rigidbody rb;
+     private bool pickedUp;
 
      public GameObject shot;
      public Transform shotSpawn;
@@ -24,6 +27,8 @@ public class PlayerController : MonoBehaviour
      public AudioSource shotSource;
      private void Start()
      {
+          pickedUp = false;
+          powerUpText.text = "";
           rb = GetComponent<Rigidbody>();
      }
 
@@ -54,5 +59,27 @@ public class PlayerController : MonoBehaviour
           );
 
           rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
+     }
+
+     void OnTriggerEnter(Collider other)
+     {
+        if ((other.CompareTag ("PickUp")) && pickedUp == false)
+        {
+          pickedUp = true;  
+          powerUpText.text = "Power Up!";
+          StartCoroutine (PowerUpTime());    
+        }
+    }
+
+     IEnumerator PowerUpTime ()
+     {
+          fireRate = fireRate / 2;
+          Debug.Log("Picked Up");
+          yield return new WaitForSeconds(5);
+          Debug.Log("5 Seconds Later");
+          fireRate = fireRate * 2;
+          pickedUp = false;
+          powerUpText.text = "";
+          StopCoroutine (PowerUpTime());
      }
 }
