@@ -8,6 +8,16 @@ public class Mover : MonoBehaviour
 
      private Rigidbody rb;
 
+     void Awake()
+     {
+          GameObject gameController = GameObject.Find("Game Controller");
+        GameController controllerScript = gameController.GetComponent<GameController>(); 
+
+        if (controllerScript.hardMode == true)
+        {
+             speed = speed * 2;
+        }
+     }
      void Start()
      {
           rb = GetComponent<Rigidbody>();
